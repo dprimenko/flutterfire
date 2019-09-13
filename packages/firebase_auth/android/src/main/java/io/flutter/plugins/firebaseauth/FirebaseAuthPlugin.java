@@ -34,7 +34,6 @@ import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.auth.PhoneAuthProvider.ForceResendingToken;
 import com.google.firebase.auth.SignInMethodQueryResult;
-import com.google.firebase.auth.TwitterAuthProvider;
 import com.google.firebase.auth.UserInfo;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.gson.Gson;
@@ -433,13 +432,6 @@ public class FirebaseAuthPlugin implements MethodCallHandler {
         {
           String accessToken = data.get("accessToken");
           credential = FacebookAuthProvider.getCredential(accessToken);
-          break;
-        }
-      case TwitterAuthProvider.PROVIDER_ID:
-        {
-          String authToken = data.get("authToken");
-          String authTokenSecret = data.get("authTokenSecret");
-          credential = TwitterAuthProvider.getCredential(authToken, authTokenSecret);
           break;
         }
       case GithubAuthProvider.PROVIDER_ID:

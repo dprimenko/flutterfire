@@ -466,10 +466,6 @@ int nextHandle = 0;
   } else if ([FIRFacebookAuthProviderID isEqualToString:provider]) {
     NSString *accessToken = data[@"accessToken"];
     credential = [FIRFacebookAuthProvider credentialWithAccessToken:accessToken];
-  } else if ([FIRTwitterAuthProviderID isEqualToString:provider]) {
-    NSString *authToken = data[@"authToken"];
-    NSString *authTokenSecret = data[@"authTokenSecret"];
-    credential = [FIRTwitterAuthProvider credentialWithToken:authToken secret:authTokenSecret];
   } else if ([FIRGitHubAuthProviderID isEqualToString:provider]) {
     NSString *token = data[@"token"];
     credential = [FIRGitHubAuthProvider credentialWithToken:token];

@@ -378,63 +378,6 @@ void main() {
       );
     });
 
-    test('TwitterAuthProvider linkWithCredential', () async {
-      final AuthCredential credential = TwitterAuthProvider.getCredential(
-        authToken: kMockIdToken,
-        authTokenSecret: kMockAccessToken,
-      );
-      final FirebaseUser user = await auth.currentUser();
-      final AuthResult result = await user.linkWithCredential(credential);
-      verifyAuthResult(result);
-      expect(
-        log,
-        <Matcher>[
-          isMethodCall(
-            'currentUser',
-            arguments: <String, dynamic>{
-              'app': auth.app.name,
-            },
-          ),
-          isMethodCall(
-            'linkWithCredential',
-            arguments: <String, dynamic>{
-              'app': auth.app.name,
-              'provider': 'twitter.com',
-              'data': <String, String>{
-                'authToken': kMockIdToken,
-                'authTokenSecret': kMockAccessToken,
-              },
-            },
-          ),
-        ],
-      );
-    });
-
-    test('TwitterAuthProvider signInWithCredential', () async {
-      final AuthCredential credential = TwitterAuthProvider.getCredential(
-        authToken: kMockIdToken,
-        authTokenSecret: kMockAccessToken,
-      );
-      final AuthResult result = await auth.signInWithCredential(credential);
-      verifyAuthResult(result);
-      expect(
-        log,
-        <Matcher>[
-          isMethodCall(
-            'signInWithCredential',
-            arguments: <String, dynamic>{
-              'app': auth.app.name,
-              'provider': 'twitter.com',
-              'data': <String, String>{
-                'authToken': kMockIdToken,
-                'authTokenSecret': kMockAccessToken,
-              },
-            },
-          ),
-        ],
-      );
-    });
-
     test('GithubAuthProvider linkWithCredential', () async {
       final AuthCredential credential = GithubAuthProvider.getCredential(
         token: kMockGithubToken,
@@ -664,34 +607,6 @@ void main() {
       );
     });
 
-    test('TwitterAuthProvider reauthenticateWithCredential', () async {
-      final FirebaseUser user = await auth.currentUser();
-      log.clear();
-      final AuthCredential credential = TwitterAuthProvider.getCredential(
-        authToken: kMockAuthToken,
-        authTokenSecret: kMockAuthTokenSecret,
-      );
-      final AuthResult result =
-          await user.reauthenticateWithCredential(credential);
-      verifyAuthResult(result);
-      expect(
-        log,
-        <Matcher>[
-          isMethodCall(
-            'reauthenticateWithCredential',
-            arguments: <String, dynamic>{
-              'app': auth.app.name,
-              'provider': 'twitter.com',
-              'data': <String, String>{
-                'authToken': kMockAuthToken,
-                'authTokenSecret': kMockAuthTokenSecret,
-              },
-            },
-          ),
-        ],
-      );
-    });
-
     test('GithubAuthProvider reauthenticateWithCredential', () async {
       final FirebaseUser user = await auth.currentUser();
       log.clear();
@@ -797,63 +712,6 @@ void main() {
               'data': <String, String>{
                 'accessToken': kMockAccessToken,
               }
-            },
-          ),
-        ],
-      );
-    });
-
-    test('TwitterAuthProvider linkWithCredential', () async {
-      final AuthCredential credential = TwitterAuthProvider.getCredential(
-        authToken: kMockAuthToken,
-        authTokenSecret: kMockAuthTokenSecret,
-      );
-      final FirebaseUser user = await auth.currentUser();
-      final AuthResult result = await user.linkWithCredential(credential);
-      verifyAuthResult(result);
-      expect(
-        log,
-        <Matcher>[
-          isMethodCall(
-            'currentUser',
-            arguments: <String, dynamic>{
-              'app': auth.app.name,
-            },
-          ),
-          isMethodCall(
-            'linkWithCredential',
-            arguments: <String, dynamic>{
-              'app': auth.app.name,
-              'provider': 'twitter.com',
-              'data': <String, String>{
-                'authToken': kMockAuthToken,
-                'authTokenSecret': kMockAuthTokenSecret,
-              },
-            },
-          ),
-        ],
-      );
-    });
-
-    test('TwitterAuthProvider signInWithCredential', () async {
-      final AuthCredential credential = TwitterAuthProvider.getCredential(
-        authToken: kMockAuthToken,
-        authTokenSecret: kMockAuthTokenSecret,
-      );
-      final AuthResult result = await auth.signInWithCredential(credential);
-      verifyAuthResult(result);
-      expect(
-        log,
-        <Matcher>[
-          isMethodCall(
-            'signInWithCredential',
-            arguments: <String, dynamic>{
-              'app': auth.app.name,
-              'provider': 'twitter.com',
-              'data': <String, String>{
-                'authToken': kMockAuthToken,
-                'authTokenSecret': kMockAuthTokenSecret,
-              },
             },
           ),
         ],
@@ -1172,24 +1030,6 @@ void main() {
           arguments: <String, String>{
             'app': auth.app.name,
             'provider': 'phone',
-          },
-        ),
-      ]);
-    });
-
-    test('TwitterAuthProvider unlinkFromProvider', () async {
-      final FirebaseUser user = await auth.currentUser();
-      await user.unlinkFromProvider(TwitterAuthProvider.providerId);
-      expect(log, <Matcher>[
-        isMethodCall(
-          'currentUser',
-          arguments: <String, String>{'app': auth.app.name},
-        ),
-        isMethodCall(
-          'unlinkFromProvider',
-          arguments: <String, String>{
-            'app': auth.app.name,
-            'provider': 'twitter.com',
           },
         ),
       ]);

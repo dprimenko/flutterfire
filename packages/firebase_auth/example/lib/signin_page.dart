@@ -632,11 +632,7 @@ class _OtherProvidersSignInSectionState
                 value: 2,
                 groupValue: _selection,
                 onChanged: _handleRadioButtonSelected,
-              ),
-              Text(
-                'Twitter',
-                style: TextStyle(fontSize: 16.0),
-              ),
+              )
             ],
           ),
         ),
@@ -694,9 +690,6 @@ class _OtherProvidersSignInSectionState
       case 1:
         _signInWithFacebook();
         break;
-      case 2:
-        _signInWithTwitter();
-        break;
       default:
     }
   }
@@ -743,29 +736,6 @@ class _OtherProvidersSignInSectionState
         _message = 'Successfully signed in with Facebook. ' + user.uid;
       } else {
         _message = 'Failed to sign in with Facebook. ';
-      }
-    });
-  }
-
-  // Example code of how to sign in with Twitter.
-  void _signInWithTwitter() async {
-    final AuthCredential credential = TwitterAuthProvider.getCredential(
-        authToken: _tokenController.text,
-        authTokenSecret: _tokenSecretController.text);
-    final FirebaseUser user =
-        (await _auth.signInWithCredential(credential)).user;
-    assert(user.email != null);
-    assert(user.displayName != null);
-    assert(!user.isAnonymous);
-    assert(await user.getIdToken() != null);
-
-    final FirebaseUser currentUser = await _auth.currentUser();
-    assert(user.uid == currentUser.uid);
-    setState(() {
-      if (user != null) {
-        _message = 'Successfully signed in with Twitter. ' + user.uid;
-      } else {
-        _message = 'Failed to sign in with Twitter. ';
       }
     });
   }
